@@ -45,15 +45,13 @@ namespace LessonsAPI
             //Assembly assembly = appDomain.Load(AssemblyName.GetAssemblyName("Library1.dll"));
             //assembly.GetModule("Library1.dll").GetType("Library1.Library1").GetMethod("HelloWorld").Invoke(null, null);
             //AppDomain.Unload(appDomain);
+
             ProcessStartInfo infop = new ProcessStartInfo();
             Process p = new Process();
-            Process p1 = new Process();
-            Process p2 = new Process();
-            Process p3 = new Process();
             bool b = true;
             while (b)
             {
-                Console.WriteLine("Выберите приложение для запуска:\n" +
+                Console.WriteLine("Выберите приложение для запуска:\n\n" +
                     "\t1. Блокнот\n" +
                     "\t2. Paint\n" +
                     "\t3. Калькулятор\n" +
@@ -69,46 +67,29 @@ namespace LessonsAPI
                         break;
                     case 2:
                         infop.FileName = "paint.exe";
-                        p1 = Process.Start(infop);
+                        p = Process.Start(infop);
                         break;
                     case 3:
                         infop.FileName = "calc.exe";
-                        p2 = Process.Start(infop);
+                        p = Process.Start(infop);
                         break;
                     case 4:
                         infop.FileName = @"d:\Users\MIKOLKA\EXAM от 11.02.2021\NortonCommander\NortonCommander\NortonCommander\bin\Debug\NortonCommander.exe";
-                        p3 = Process.Start(infop);
+                        p = Process.Start(infop);
                         break;
                     default:
                         break;
                 }
+                Console.WriteLine();
                 Console.Write("Выйти с приложения (Да-1, Нет-2): ");
                 string v2 = Console.ReadLine();
                 int var2 = Convert.ToInt32(v2);
-                if (var2 == 1 && var ==1)
+                if (var2 == 1)
                 {
                     b = false;
                     p.CloseMainWindow();
-                   
                 }
-                if (var2 == 1 && var == 2)
-                {
-                    b = false;
-                    p1.CloseMainWindow();
-
-                }
-                if (var2 == 1 && var == 3)
-                {
-                    b = false;
-                    p2.CloseMainWindow();
-
-                }
-                if (var2 == 1 && var == 4)
-                {
-                    b = false;
-                    p.CloseMainWindow();
-
-                }
+                
                 Console.WriteLine();
                 Console.WriteLine("Выход");
             }
