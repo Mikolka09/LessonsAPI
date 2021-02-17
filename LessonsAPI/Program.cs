@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Threading;
+using System.Reflection;
 
 namespace LessonsAPI
 {
@@ -25,15 +28,93 @@ namespace LessonsAPI
     {
         static void Main(string[] args)
         {
+            #region WinAPI
             //Console.WriteLine("HELLO API!!!");
 
             //Win32.MessageBox(new IntPtr(0), "Hello Word", "Hello Dialog", 0x00000000L|0x00000040L);
-            IntPtr p = Win32.FindWindow(null, "Документ - WordPad");
-            Console.WriteLine(p);
+            //IntPtr p = Win32.FindWindow(null, "Документ - WordPad");
+            //Console.WriteLine(p);
             //Win32.DestroyWindow(p);
-            Win32.SendMessage(p, 0x0010, 0, 0);
+            //Win32.SendMessage(p, 0x0010, 0, 0);
+            #endregion
+
+            //ProcessStartInfo infop = new ProcessStartInfo("notepad.exe");
+            //Process p = Process.Start(infop);
+
+            //AppDomain appDomain = AppDomain.CreateDomain("new domain");
+            //Assembly assembly = appDomain.Load(AssemblyName.GetAssemblyName("Library1.dll"));
+            //assembly.GetModule("Library1.dll").GetType("Library1.Library1").GetMethod("HelloWorld").Invoke(null, null);
+            //AppDomain.Unload(appDomain);
+            ProcessStartInfo infop = new ProcessStartInfo();
+            Process p = new Process();
+            Process p1 = new Process();
+            Process p2 = new Process();
+            Process p3 = new Process();
+            bool b = true;
+            while (b)
+            {
+                Console.WriteLine("Выберите приложение для запуска:\n" +
+                    "\t1. Блокнот\n" +
+                    "\t2. Paint\n" +
+                    "\t3. Калькулятор\n" +
+                    "\t4. Norton_Comander\n");
+                Console.Write("Ваш выбор: ");
+                string v = Console.ReadLine();
+                int var = Convert.ToInt32(v);
+                switch (var)
+                {
+                    case 1:
+                        infop.FileName = "notepad.exe";
+                        p = Process.Start(infop);
+                        break;
+                    case 2:
+                        infop.FileName = "paint.exe";
+                        p1 = Process.Start(infop);
+                        break;
+                    case 3:
+                        infop.FileName = "calc.exe";
+                        p2 = Process.Start(infop);
+                        break;
+                    case 4:
+                        infop.FileName = @"d:\Users\MIKOLKA\EXAM от 11.02.2021\NortonCommander\NortonCommander\NortonCommander\bin\Debug\NortonCommander.exe";
+                        p3 = Process.Start(infop);
+                        break;
+                    default:
+                        break;
+                }
+                Console.Write("Выйти с приложения (Да-1, Нет-2): ");
+                string v2 = Console.ReadLine();
+                int var2 = Convert.ToInt32(v2);
+                if (var2 == 1 && var ==1)
+                {
+                    b = false;
+                    p.CloseMainWindow();
+                   
+                }
+                if (var2 == 1 && var == 2)
+                {
+                    b = false;
+                    p1.CloseMainWindow();
+
+                }
+                if (var2 == 1 && var == 3)
+                {
+                    b = false;
+                    p2.CloseMainWindow();
+
+                }
+                if (var2 == 1 && var == 4)
+                {
+                    b = false;
+                    p.CloseMainWindow();
+
+                }
+                Console.WriteLine();
+                Console.WriteLine("Выход");
+            }
 
             Console.ReadKey();
+            //p.CloseMainWindow();
         }
     }
 }
