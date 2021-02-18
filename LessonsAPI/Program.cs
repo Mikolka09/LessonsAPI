@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading;
 using System.Reflection;
+using System.IO;
 
 namespace LessonsAPI
 {
@@ -26,7 +27,87 @@ namespace LessonsAPI
     }
     class Program
     {
+        //public static void Hello(object t)
+        //{
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        Console.WriteLine("Hello " + t + ' ' + i);
+        //    }
+        //    ((Timer)t).Dispose();
+        //}
+
+        //public static void HelloTH(object t)
+        //{
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        Console.WriteLine("Hello " + t + ' ' + i);
+        //    }
+
+        //}
+
+        public static void Max(object t)
+        {
+            int max = ((int[])t).Max();
+            Console.WriteLine("Max = {0}", max);
+        }
+        public static void Min(object t)
+        {
+            int min = ((int[])t).Min();
+            Console.WriteLine("Min = {0}", min);
+        }
+        public static void AVG(object t)
+        {
+            double avg = ((int[])t).Average();
+            Console.WriteLine("AVG = {0}", avg);
+        }
+        public static void Print(object t)
+        {
+            int[] arr = ((int[])t);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + ",  ");
+            }
+            string path = "D:\\text.txt";
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    sw.WriteLine(arr[i]);
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("\nДанные записаны в файл по адресу - {0}", path);
+        }
+
         static void Main(string[] args)
+        {
+            //Console.WriteLine("Hello World");
+            //Timer t = new Timer(Hello);
+            //t.Change(1000, 500);
+            int n = 10000;
+            Random rand = new Random();
+            int[] arr = new int[n];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = rand.Next();
+            }
+
+            Thread print = new Thread(Print);
+            print.Start(arr);
+            print.Join();
+            Thread max = new Thread(Max);
+            max.Start(arr);
+            Thread min = new Thread(Min);
+            min.Start(arr);
+            Thread avg = new Thread(AVG);
+            avg.Start(arr);
+
+            //Thread thread1 = new Thread(HelloTH);
+            //thread1.Start("Mikolka");
+            Console.ReadKey();
+        }
+
+        static void Main2(string[] args)
         {
             #region WinAPI
             //Console.WriteLine("HELLO API!!!");
@@ -89,7 +170,7 @@ namespace LessonsAPI
                     b = false;
                     p.CloseMainWindow();
                 }
-                
+
                 Console.WriteLine();
                 Console.WriteLine("Выход");
             }
